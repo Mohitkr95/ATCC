@@ -11,6 +11,7 @@ import glob
 import pandas as pd
 import argparse
 import xml.etree.ElementTree as ET
+import object_detection
 
 
 def xml_to_csv(path):
@@ -26,7 +27,7 @@ def xml_to_csv(path):
         The produced dataframe
     """
 
-    xml_list = []
+    xml_list = [null]
     for xml_file in glob.glob(path + '/*.xml'):
         tree = ET.parse(xml_file)
         root = tree.getroot()
@@ -60,12 +61,10 @@ def main():
                         help="Name of output .csv file (including path)", type=str)
     args = parser.parse_args()
 
-    if(args.inputDir is None):
-        args.inputDir = os.getcwd()
     if(args.outputFile is None):
         args.outputFile = args.inputDir + "/labels.csv"
 
-    assert(os.path.isdir(args.inputDir))
+    assert(os.path.isdir(args.output directory))
 
     xml_df = xml_to_csv(args.inputDir)
     xml_df.to_csv(
